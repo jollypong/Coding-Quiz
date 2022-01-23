@@ -5,8 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style src="assets/reset.css"></style>
+    <style src="assets/style.css"></style>
 </head>
 <body>
-    
+    <div class="start" id="start">
+        <p>Click "Start" to begin your JavaScript knowledge quiz!</p>
+        <button id = "startbtn">START</button>
+    </div>
+    <div class="instructions" id="instructions" hidden>
+        <p>Here are some Rules: </p>
+        <ol>
+            <li>You will have 60 seconds to solve the next 10 questions.</li>
+            <li>If you get a question WRONG, your timer will go DOWN by 10 seconds.</li>
+            <li>If you get a question RIGHT, your timer will go UP by 10 seconds.</li>
+            <li>Quitting the quiz will not save your progress, you will start again.</li>
+        </ol>
+        <button id= "nextbtn">NEXT</button>
+    </div>
+    <div id="showQuiz" class="container" hidden>
+        <p>Quiz goes here</p>
+    </div>
+    <script src="./develop/script1.js"></script>
 </body>
 </html>
