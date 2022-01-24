@@ -1,18 +1,49 @@
 //Elements
 
-let finalscore = document.getElementsById("#score")
+//Highscores element: 
 
-// let initialInput = document.getElementById("#initial")
+//scorescreen element:
+let scorescreenEl = document.querySelector(".scorescreen");
+let finalscore = document.getElementById("#score");
+let initialInput = document.getElementById("#initial");
 
 //timer element:
 let timerEl = document.getElementById("countdown");
 let timeLeft = 60; 
+let timerInterval; //for time to reach 0, and be referenced in endquiz fxn;
 
 //quiz element:
 let quizEl = document.querySelector(".quizContainer"); //selects whole div Quiz 
 let questionEl = document.querySelector("#questions"); //selects h1 "questions"
 let answerButton = document.querySelector(".answerButton"); //selects answerbutton where choices will display
 let quizIndex = 0; //tracks current quiz 
+
+//instruction element: 
+let nextButton = document.querySelector("#nextbtn");
+let instructionsEl = document.querySelector(".instructions");
+
+//startscreen element: 
+let startButton = document.querySelector("#startbtn");
+let startEl = document.querySelector(".start");
+
+//function for input questions/answers into html
+function displayQuiz() { 
+    hide(instructionsEl);
+    show(quizEl);
+    setTimer();
+
+    let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
+    quizEl.textContent = currentQuiz.question; //input current question into html
+    let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
+        console.log(answers);
+        console.log(answers.length)
+
+    for (let i = 0; i < answers.length; i++) { 
+        answerButton.children[i].textContent = answers[i]
+    }
+    console.log(answerButton);
+    console.log(answerButton.children[0]);
+};
 
 let quizBank = [ 
     {
@@ -69,92 +100,79 @@ let quizBank = [
 
 // function to quit Quiz?? (refresh?) or go back to startdiv? 
 document.getElementById("quitbtn").addEventListener("click", location.reload.bind(location));
+
+//function scorescreen
+function scorescreen() { 
     
-// };
+}
 
-// //function for timer, go next if timer = 0 or gameover
-// if(correct){ 
-//     timeLeft + 10
-//     score ++
-// }
-// if(incorrect){ 
-//     timeLeft -10 
-// }
-// //function for timer add time if correct, subtract time if wrong
 
+// function end quiz, hides quiz div and show score div
+function endQuiz(){ 
+    clearInterval(timerInterval); 
+    timerEl.textContent = 0;
+    if (timeLeft <0) { 
+        timeLeft = 0;
+    }
+    hide(quizEl);
+    show(scorescreenEl);
+}
+
+//function to settimer for quiz, end time if time is 0; 
 function setTimer(){ 
     let timerInterval = setInterval(function() { 
         timeLeft--; 
         timerEl.textContent = timeLeft;
         if(timeLeft ===0){
             clearInterval(timerInterval)};
+            endQuiz()
             console.log("timer is working")
     }
  ,1000)
 }
 
-//function to submit score
-// document.getElementById("submitbtn").addEventListener("click", response);
-// function submitHighscore(){ 
-//     let initial = document.querySelector(#initial).value; 
-//     let score = score
-//     event.preventDefault(); 
-//     console.log(event); 
-//     let response = "Your score is saved and will display on Highscore!" 
-//     responseEl.textContent = response; 
-//     initial
-// }
+//function to check answer, display right/wrong and add/subtr time
 
-// //function to bring up highScores (render)
-// document.getElementById("#highscorebtn").addEventListener("click", highScore());
-// function renderhighScore(){ 
-//     var initial = localStorage.getItem("initial"); 
-//     let score = localStorage.getItem("score");
-
-//     userInitialSpan.textContent = initial; 
-//     userScore.textContent = score;
-// }
-
-// function end quiz 
-
-function endQuiz(){ 
-    clearInterval(timeInterval); 
-    timerEl.textContent = 0;
-    if (timeLeft <0) { 
-        timeLeft = 0;
-    }
-    //hide quiz 
-    //show results page 
-}
 
 //function for input questions/answers into html
-function displayQuiz() { 
-    let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
-    quizEl.textContent = currentQuiz.question; //input current question into html
-    let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
-        console.log(answers);
-        console.log(answers.length)
+// function displayQuiz() { 
+//     hide(instructionsEl);
+//     show(quizEl);
+//     setTimer();
 
-    for (let i = 0; i < answers.length; i++) { 
-        answerButton.children[i].textContent = answers[i]
-    }
-    console.log(answerButton);
-        console.log(answerButton.children[0]);
+//     let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
+//     quizEl.textContent = currentQuiz.question; //input current question into html
+//     let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
+//         console.log(answers);
+//         console.log(answers.length)
+
+//     for (let i = 0; i < answers.length; i++) { 
+//         answerButton.children[i].textContent = answers[i]
+//     }
+//     console.log(answerButton);
+//     console.log(answerButton.children[0]);
+// };
+
+//next button will display the quiz
+nextButton.addEventListener("click", displayQuiz);
+function instructions(){ 
+    hide(instructionsEl);
+    show(quizEl);
+    displayQuiz()
 };
 
-//start the quiz 
-document.getElementById("nextbtn").addEventListener("click", function(){ 
-    document.getElementById("instructions").hidden = true; 
-    quizEl.hidden = false; 
-    console.log("next button is working!");
-    setTimer();
-    displayQuiz();
-}, false);
-
-
 //start button brings up instructions
-document.getElementById("startbtn").addEventListener("click", function(){ 
-    document.getElementById("start").hidden = true; 
-    document.getElementById("instructions").hidden = false; 
-    console.log("start button is working!");
-}, false);
+startButton.addEventListener("click", start);
+function start(){ 
+    hide(startEl);
+    show(instructionsEl);
+};
+
+//hide element
+function hide(element) {
+    element.setAttribute("style", "display: none;");
+}
+//show element
+function show(element) {
+    element.setAttribute("style", "display: block;");
+}
