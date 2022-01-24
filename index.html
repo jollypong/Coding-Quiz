@@ -23,9 +23,36 @@
         </ol>
         <button id= "nextbtn">NEXT</button>
     </div>
-    <div id="showQuiz" class="container" hidden>
-        <p>Quiz goes here</p>
+    <div class="quizContainer" hidden>
+        <h1 id = "questions"></h1> 
+        <div class = "answerButton">
+            <button id ="choice1" value = 0></button>
+            <button id ="choice2" value = 1></button>
+            <button id ="choice3" value = 2></button>
+            <button id ="choice4" value = 3></button>
+        </div>
+        <div id = "rightWrong" class = "rightWrong"></div>
+        <div class = "timer">
+            <h2 id="countdown"></h2>
+        </div>
+        <button id = "quitbtn">QUIT</button>
     </div>
+    <div class="result" hidden>
+        <p>You've completed the quiz!</p> 
+        <div id = "score"></div>
+        <label for="initial">Enter Your Initials!<label>
+            <input type="text" id="initial" size="5" maxlength="3"/>
+            <button id = submitbtn>SUBMIT</button>
+            
+        <button id = "quitbtn">QUIT</button>
+    </div>
+    <div id="Highscore" class="Highscore" hidden>
+        <h1>Highscores</h1>
+        <ol id = "scoreboard"></ol>
+
+        <button id = "quitbtn">Main Menu</button>
+    </div>
+
     <script src="./develop/script1.js"></script>
 </body>
 </html>
