@@ -13,7 +13,7 @@
         <p>Click "Start" to begin your JavaScript knowledge quiz!</p>
         <button id = "startbtn">START</button>
     </div>
-    <div class="instructions" id="instructions" hidden>
+    <div class="instructions" id="instructions" style = "display: none">
         <p>Here are some Rules: </p>
         <ol>
             <li>You will have 60 seconds to solve the next 10 questions.</li>
@@ -23,7 +23,7 @@
         </ol>
         <button id= "nextbtn">NEXT</button>
     </div>
-    <div class="quizContainer" hidden>
+    <div class="quizContainer" style = "display: none">
         <h1 id = "questions"></h1> 
         <div class = "answerButton">
             <button id ="choice1" value = 0></button>
@@ -31,24 +31,25 @@
             <button id ="choice3" value = 2></button>
             <button id ="choice4" value = 3></button>
         </div>
-        <div id = "rightWrong" class = "rightWrong"></div>
+        <div id = "checkAnswer"></div>
         <div class = "timer">
-            <h2 id="countdown"></h2>
+            <h2 id="displaySeconds"></h2>
         </div>
         <button id = "quitbtn">QUIT</button>
     </div>
-    <div class="scorescreen" hidden>
-        <p>You've completed the quiz!</p> 
-        <div id = "score"></div>
-        <label for="initial">Enter Your Initials!<label>
-            <input type="text" id="initial" size="5" maxlength="3"/>
-            <button id = submitbtn>SUBMIT</button>
-            
-        <button id = "quitbtn">QUIT</button>
+    <div class="scoreScreen" style = "display: none">
+        <h1>You've completed the quiz!</h1>
+        <h2 id = "score"></h2>
+        <div id = "scoreForm">
+            <label for="initial">Enter Your Initials!<label>
+                <input type="text" id="initial" size="5" maxlength="3"/>
+                <button id = submitbtn>SUBMIT</button>
+            <button id = "quitbtn">QUIT</button>
+        </div>
     </div>
-    <div id="Highscore" class="Highscore" hidden>
+    <div id="highScore" class="highScore" style = "display: none">
         <h1>Highscores</h1>
-        <ol id = "scoreboard"></ol>
+        <ol id = "scoreBoard"></ol>
 
         <button id = "quitbtn">Main Menu</button>
     </div>
