@@ -2,12 +2,14 @@
 //Highscores element: 
 let highScoreEl = document.querySelector(".highScore"); 
 let scoreBoard = document.querySelector("#scoreboard");
+let userId = document.querySelector("#userid");
+let userScore = document.querySelector("#userScore");
 
 //scorescreen element:
 let scoreScreenEl = document.querySelector(".scoreScreen");
-let finalScore = document.getElementById("#score");
-let initialInput = document.getElementById("#initial");
-let scoreForm = document.getElementById("#scoreForm")
+let finalScore = document.querySelector("#score");
+let initialInput = document.querySelector("#initial");
+let submitButton = document.querySelector("#submitbtn");
 
 //timer element:
 let timerEl = document.getElementById("displaySeconds");
@@ -19,25 +21,8 @@ let quizEl = document.querySelector(".quizContainer"); //selects whole div Quiz
 let questionEl = document.querySelector("#questions"); //selects h1 "questions"
 let answerButton = document.querySelector(".answerButton"); //selects answerbutton where choices will display
 let quizIndex = 0; //tracks current quiz 
-let checkAnswerEl = document.querySelector("#checkAsnwer");
+let checkAnswerEl = document.querySelector("#checkAnswer");
 let score = 0;
-
-function displayQuiz() { 
-    hide(instructionsEl);
-    show(quizEl);
-    setTimer();
-
-    let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
-    questionEl.textContent = currentQuiz.question; //input current question into html
-    let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
-        console.log(answers);
-        console.log(answers.length)
-
-    for (let i = 0; i < answers.length; i++) { 
-        answerButton.children[i].textContent = answers[i];
-        console.log(answers[i])
-    }
-};
 
 //instruction element: 
 let nextButton = document.querySelector("#nextbtn");
@@ -105,131 +90,124 @@ document.getElementById("quitbtn").addEventListener("click", location.reload.bin
 
 //function to load highscore
 function highScore(){ 
-    hide (scoreScreenEl);
-    show (highScore);
+    hide(scoreScreenEl);
+    show(highScoreEl);
 }
-
-//function to render highscore
-// function renderScore(){ 
-
-// }
 
 //function to load score from local 
 function loadScore(){ 
     localStorage.getItem("initial"); 
-    
+    localStorage.getItem("score")
 }
 
 //function for storing score to local 
 function storeScore(){ 
-    localStorage.setItem("initial", "score")
-    localStorage.setItem("initialScore")
+    localStorage.setItem("initial", userId)
+    localStorage.setItem("score", userScore)
 }
 
-//function for scoreform to save score and load Highscores: 
-// scoreForm.addEventListener("submit", function(){ 
-//     event.preventDefault; 
-//     let initial = initialInput.value; 
-//     if (!initial){ 
-//         return;
-//     }
-//     let initialScore = {Initials: initial, Score: score}; 
-//     console.log(initialScore);
-//     storeScore();
-//     highScore();
-// })
+submitButton.addEventListener("click", function(event){ 
+    event.preventDefault; 
+    let userId = initialInput.value; 
+
+    if (userId = ""){ //to check initial is not blank
+        alert ("Your initials can't be blank!")
+    }
+    let userScore = score;
+    console.log(userScore);
+    storeScore();
+    highScore();
+})
 
 //function to display final score:
 function scoreScreen() { 
-    finalScore.textContent = "You've scored " + score; "/" + quizBank.length;
+    finalScore.textContent = "You scored: " + score + " out of " + quizBank.length;
 }
 
 // function end quiz, hides quiz div and show score div:
 function endQuiz(){ 
+    timeLeft= 0;
     clearInterval(timerInterval); 
-    timerEl.textContent = 0;
     //if timer still ticking after quiz done
-    timeLeft === 0;
     hide(timerEl)
     hide(quizEl);
     show(scoreScreenEl);
+    scoreScreen();
 }
 
-//function to settimer for quiz, end time if time is 0; 
+//function to set timer for quiz, end time if time is 0; 
 function setTimer(){ 
     let timerInterval = setInterval(function() { 
         timeLeft--; 
         timerEl.textContent = timeLeft; //display time on screen
-        if(timeLeft ===0){
+        if(timeLeft < 0){
             clearInterval(timerInterval);
             endQuiz();
-        }; console.log("timer is working");
+        };
     }
  ,1000);
 }
 
 //fucntion to display right/wrong and add/subtr time
-function checkAnswer(choice){ 
+function showAnswer(choice){ 
     if (quizBank[quizIndex].answer == choice){ 
-        checkAnswerEl.setAttribute("class", "right");
-        checkAnswerEl.textContent("Right!");
-        secondsLeft +=10; 
-        score ++
+        checkAnswerEl.textContent = "Right!";
+        timeLeft +=10; 
+        score ++;
+        nextQuestion();
     }else { 
-        secondsLeft -=10; 
-        checkAnswerEl.setAttribute("class, wrong");
-        checkAnswerEl.textContent("Wrong!");
+        timeLeft -=10; 
+        checkAnswerEl.textContent = "Wrong!";
+        nextQuestion();
     }
-    nextQuestion();
 }
 
 //function to check answer
 answerButton.addEventListener("click", function () {
-    let element = event.target;
-    if (element.matches("button")) {
-        checkAnswer(element.value);
+    let checkAnswer = event.target;
+    if (checkAnswer.matches("button")) {
+        showAnswer(checkAnswer.value);
     }
 })
 
 //function to load next answer from the quizbank
 function nextQuestion(){ 
-    if (quizIndex < quizBank.length){ 
+    if (quizIndex < quizBank.length-1){ 
         quizIndex++; 
         displayQuiz();
-    } else
-    endQuiz;
+    } else {
+        endQuiz();
+    }
 }
 
-// function for input questions/answers into html
-// function displayQuiz() { 
-//     hide(instructionsEl);
-//     show(quizEl);
-//     setTimer();
+function displayQuiz() { 
+    let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
+    questionEl.textContent = currentQuiz.question; //input current question into html
+    let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
 
-//     let currentQuiz = quizBank[quizIndex]; //load current question from quizbank
-//     quizEl.textContent = currentQuiz.question; //input current question into html
-//     let answers = currentQuiz.choices; //input choices into html from index choices from indez quizbank
-//         console.log(answers);
-//         console.log(answers.length)
+    for (let i = 0; i < answers.length; i++) { 
+        answerButton.children[i].textContent = answers[i];
+    }
+};
 
-//     for (let i = 0; i < answers.length; i++) { 
-//         answerButton.children[i].textContent = answers[i];
-//         console.log(answers[i])
-//     }
-//     console.log(answerButton);
-//     console.log(answerButton.children[0]);
-// };
+function startQuiz (){ 
+    hide(instructionsEl);
+    show(quizEl);
+    setTimer();
+    displayQuiz();
+}
 
 //next button will display the quiz
-nextButton.addEventListener("click", displayQuiz);
+nextButton.addEventListener("click", startQuiz);
 function instructions(){ 
     hide(instructionsEl);
-    displayQuiz()
+    displayQuiz();
+    console.log(timeLeft)
 };
 
 //start button brings up instructions
-startButton.addEventListener("click", start);
-function start(){ 
+startButton.addEventListener("click", instructions);
+function instructions(){ 
     hide(startEl);
     show(instructionsEl);
 };

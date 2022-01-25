@@ -23,6 +23,7 @@
         </ol>
         <button id= "nextbtn">NEXT</button>
     </div>
+
     <div class="quizContainer" style = "display: none">
         <h1 id = "questions"></h1> 
         <div class = "answerButton">
@@ -31,26 +32,32 @@
             <button id ="choice3" value = 2></button>
             <button id ="choice4" value = 3></button>
         </div>
-        <div id = "checkAnswer"></div>
+        <h3 id = "checkAnswer"></h3>
         <div class = "timer">
             <h2 id="displaySeconds"></h2>
         </div>
         <button id = "quitbtn">QUIT</button>
     </div>
+    
     <div class="scoreScreen" style = "display: none">
         <h1>You've completed the quiz!</h1>
-        <h2 id = "score"></h2>
+        <h2 id= "score"></h2>
+
         <div id = "scoreForm">
-            <label for="initial">Enter Your Initials!<label>
-                <input type="text" id="initial" size="5" maxlength="3"/>
-                <button id = submitbtn>SUBMIT</button>
+            <form>
+                <label for="initial">Enter Your Initials! (Max of 4 characters)<label>
+                <input type="text" id="initial" size="5" maxlength="4"/>
+                <button id = "submitbtn">SUBMIT</button>
+            </form>
             <button id = "quitbtn">QUIT</button>
         </div>
     </div>
     <div id="highScore" class="highScore" style = "display: none">
         <h1>Highscores</h1>
-        <ol id = "scoreBoard"></ol>
-
+        <div id = "scoreboard">
+            <div id = userId></div>
+            <div id = userScore></div>
+        </div>
         <button id = "quitbtn">Main Menu</button>
     </div>
 
