@@ -9,20 +9,20 @@
     <style src="./assets/style.css"></style>
     <title>Joe's Pop Quiz!</title>
 </head>
-<body>
-    <div class="start container p-3 mb-2 bg-secondary text-white text-center" id="start">
+<body class = "min-100-vh flex-column">
+    <div class="start container p-3 mb-2 bg-secondary text-white text-center justify-content-center" id="start">
         <p class = "start text-center">Click "Start" to begin your JavaScript knowledge quiz!</p>
-        <button id = "startbtn" class="btn btn-primary btn-lg">START</button>
+        <button id = "startbtn" class="btn btn-primary btn-lg align middle">START</button>
     </div>
-    <div class="instructions container p-3 mb-2 bg-secondary text-white" id="instructions" style = "display: none">
-        <p class = "rules text-center">Here are some rules:</p>
-        <ol>
+    <div class="instructions container p-3 mb-2 bg-secondary text-white text-left" id="instructions" style = "display: none">
+        <p class = "rules">Here are some rules:</p>
+        <ol>    
             <li>You will have 60 seconds to solve the next 10 questions.</li>
             <li>If you get a question WRONG, your timer will go DOWN by 10 seconds.</li>
             <li>If you get a question RIGHT, your timer will go UP by 10 seconds.</li>
             <li>Quitting the quiz will not save your progress, you will start again.</li>
         </ol>
-        <button id= "nextbtn" class="btn btn-primary btn-lg align-center">NEXT</button>
+        <button id= "nextbtn" class="btn btn-primary btn-lg">NEXT</button>
     </div>
 
     <div class="quizContainer container p-3 mb-2 bg-secondary text-white text-center" style = "display: none">
@@ -44,16 +44,16 @@
         <h1>You've completed the quiz!</h1>
         <h2 id= "score"></h2>
 
-        <div id = "scoreForm">
+        <div id = "scoreForm" class = "col">
             <form>
-                <label for="initial">Enter Your Initials! (Max of 4 characters)<label>
+                <label for="initial">Enter Your Initials! (Max of 4 characters)<label> 
                 <input type="text" id="initial" name = "initial" size="5" maxlength="4" placeholder="  HERE"/>
                 <button class="btn btn-primary btn-lg " id = "submitbtn" type="button">SUBMIT</button>
             </form>
             <button id = "quitbtn" class="btn btn-danger btn-lg .float-left"> QUIT </button>
         </div>
     </div>
-    <div id="highScore" class="highScore container p-3 mb-2 bg-secondary text-white text-center" style = "display: none">
+    <div id="highScore" class="highScore container p-3 mb-2 bg-secondary text-white text-center" style = "display: block">
         <h1>Scoreboard</h1>
         <div id = "Scoreboard">
             <ol id = "recordList"></ol>
@@ -62,7 +62,7 @@
         <button id = "clearbtn" class="btn btn-warning btn-lg">Clear Scoreboard</button>
     </div>
 
-    <script src="./develop/script1.js"></script>
+    <script src="./assets/script1.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
