@@ -46,21 +46,22 @@
         <div id = "scoreForm">
             <form>
                 <label for="initial">Enter Your Initials! (Max of 4 characters)<label>
-                <input type="text" id="initial" size="5" maxlength="4"/>
-                <button id = "submitbtn">SUBMIT</button>
+                <input type="text" id="initial" name = "initial" size="5" maxlength="4"/>
+                <button id = "submitbtn" type="button">SUBMIT</button>
             </form>
             <button id = "quitbtn">QUIT</button>
         </div>
     </div>
     <div id="highScore" class="highScore" style = "display: none">
-        <h1>Highscores</h1>
-        <div id = "scoreboard">
-            <div id = userId></div>
-            <div id = userScore></div>
+        <h1>Scoreboard</h1>
+        <p>Here's the scores of the last 5 people! </p>
+        <div id = "Scoreboard">
+            <ol id = "recordList"></ol>
         </div>
         <button id = "quitbtn">Main Menu</button>
     </div>
 
     <script src="./develop/script1.js"></script>
+    
 </body>
 </html>

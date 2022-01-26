@@ -2,14 +2,16 @@
 //Highscores element: 
 let highScoreEl = document.querySelector(".highScore"); 
 let scoreBoard = document.querySelector("#scoreboard");
-let userId = document.querySelector("#userid");
 let userScore = document.querySelector("#userScore");
+let recordList = document.querySelector("#recordList")
 
 //scorescreen element:
 let scoreScreenEl = document.querySelector(".scoreScreen");
 let finalScore = document.querySelector("#score");
 let initialInput = document.querySelector("#initial");
+let userId = document.querySelector("#userid");
 let submitButton = document.querySelector("#submitbtn");
+let record = [];
 
 //timer element:
 let timerEl = document.getElementById("displaySeconds");
@@ -96,28 +98,53 @@ function highScore(){
 
 //function to load score from local 
 function loadScore(){ 
-    localStorage.getItem("initial"); 
-    localStorage.getItem("score")
-}
+    let userNameAndScore = JSON.parse(localStorage.getItem("initials-scores"))
+    console.log(userNameAndScore);
+    console.log("loadscore is working")
 
-//function for storing score to local 
-function storeScore(){ 
-    localStorage.setItem("initial", userId)
-    localStorage.setItem("score", userScore)
-}
-
-submitButton.addEventListener("click", function(event){ 
-    event.preventDefault; 
-    let userId = initialInput.value; 
-
-    if (userId = ""){ //to check initial is not blank
-        alert ("Your initials can't be blank!")
+    if (userNameAndScore !== null) {
+        
+        for (let i = 0; i < 5; i++){ 
+            let li = document.createElement("li"); 
+        li.textContent = userNameAndScore[i].userName + "-" + userNameAndScore[i].score;
+        }
     }
-    let userScore = score;
-    console.log(userScore);
-    storeScore();
+}
+
+function checkScore(lastScore){
+    console.log(lastScore);
+    //check to see if there's any scores in localStorage
+    let highScores = JSON.parse(localStorage.getItem("initials-scores"))
+    if (!highScores){ 
+        console.log("no highscores")
+        highScores = [];
+        highScores.push(lastScore);
+        localStorage.setItem("initials-scores", JSON.stringify(highScores));
+    }
+    console.log(highScores);
+}
+
+//submit button will save score and load score, bring up highscore
+submitButton.addEventListener("click", function(){ 
+    event.preventDefault; 
+
+    let userId = initialInput.value; 
+    if (userId === ""){ //to check initial is not blank
+        alert ("Your initials can't be blank!");
+    }
+
+    let userNameAndScore = { //create array for username and score
+        userName: userId, 
+        score: score};
+
+    initialInput.value = ""; //clear initial input
+    localStorage.setItem("userInitialsAndScore", JSON.stringify(userNameAndScore)); 
+    console.log("storescore is working");
+   
+    checkScore(userNameAndScore);
     highScore();
-})
+    loadScore();
+});
 
 //function to display final score:
 function scoreScreen() { 
@@ -129,7 +156,7 @@ function endQuiz(){
     timeLeft= 0;
     clearInterval(timerInterval); 
     //if timer still ticking after quiz done
-    hide(timerEl)
+    hide(timerEl);
     hide(quizEl);
     show(scoreScreenEl);
     scoreScreen();
@@ -163,7 +190,7 @@ function showAnswer(choice){
 }
 
 //function to check answer
-answerButton.addEventListener("click", function () {
+answerButton.addEventListener("click", function(event) {
     let checkAnswer = event.target;
     if (checkAnswer.matches("button")) {
         showAnswer(checkAnswer.value);
