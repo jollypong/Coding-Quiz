@@ -25,7 +25,7 @@ You may add more questions and 4 choices on to the array to populate more questi
 ## Deployment
 Website is currently deployed on Git Pages: 
 
-jollypong.github.io/coding-quiz/
+https://jollypong.github.io/coding-quiz/
 
 ## Repository
 Repository can be accessed at: 
@@ -42,7 +42,7 @@ Repository contains:
   - reset.css
      
 ## Screenshots
-![screenshot1](./Assets/screenshot.png)
+![screenshot](./assets/screenshot.png)
 
 ## Contribution
 Joe Lee @ https://github.com/jollypong
