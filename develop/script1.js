@@ -3,7 +3,8 @@
 let highScoreEl = document.querySelector(".highScore"); 
 let scoreBoard = document.querySelector("#scoreboard");
 let userScore = document.querySelector("#userScore");
-let recordList = document.querySelector("#recordList")
+let recordList = document.querySelector("#recordList");
+let clearButton = document.querySelector("#clearbtn");
 
 //scorescreen element:
 let scoreScreenEl = document.querySelector(".scoreScreen");
@@ -11,7 +12,7 @@ let finalScore = document.querySelector("#score");
 let initialInput = document.querySelector("#initial");
 let userId = document.querySelector("#userid");
 let submitButton = document.querySelector("#submitbtn");
-let record = [];
+let record = []; //empty array for localStorage
 
 //timer element:
 let timerEl = document.getElementById("displaySeconds");
@@ -45,53 +46,62 @@ let quizBank = [
         ],
     answer: 3
     }, 
-    // {
-    // question: "What does DOM stand for?",
-    // choices:[
-    //     "My friend Dominic",
-    //     "Delayed Onset Muscle-soreness",
-    //     "Document Object Model",
-    //     "Dirty Old Man"
-    //     ],
-    // answer: 2
-    // },
-    // {//question3
-    // question: "Which element's style am I trying to change below? imgEl[0].setAttribute('style', 'width:50%')",
-    // choices:[
-    //     "style", 
-    //     "imgEl",
-    //     "0",
-    //     "First Image"
-    //     ],
-    // answer: 3
-    // },
-    // {//question4 
-    // question: "What is 'Element.append' used for?",
-    // choices: [
-    //     "chooses appendix",
-    //     "insert set of objects after the last child of a parent",
-    //     "a pen",
-    //     "insert set of objects to the children of specified parent node"
-    // ], 
-    // answer: 1
-    // },
-    // {//question 5
-    // question: "When using TimerInterval, what command will stop the timer?",
-    // choices: [
-    //     "clearInterval()",
-    //     "Alt + F4",
-    //     "Escape",
-    //     "setInterval"
-    // ],
-    // answer: 0
-    // },
+    {
+    question: "What does DOM stand for?",
+    choices:[
+        "My friend Dominic",
+        "Delayed Onset Muscle-soreness",
+        "Document Object Model",
+        "Dirty Old Man"
+        ],
+    answer: 2
+    },
+    {//question3
+    question: "Which element's style am I trying to change below? imgEl[0].setAttribute('style', 'width:50%')",
+    choices:[
+        "style", 
+        "imgEl",
+        "0",
+        "First Image"
+        ],
+    answer: 3
+    },
+    {//question4 
+    question: "What is 'Element.append' used for?",
+    choices: [
+        "chooses appendix",
+        "insert set of objects after the last child of a parent",
+        "a pen",
+        "insert set of objects to the children of specified parent node"
+    ], 
+    answer: 1
+    },
+    {//question 5
+    question: "When using TimerInterval, what command will stop the timer?",
+    choices: [
+        "clearInterval()",
+        "Alt + F4",
+        "Escape",
+        "setInterval"
+    ],
+    answer: 0
+    },
 ];
+
 
 // function to quit Quiz?? (refresh?) or go back to startdiv? 
 document.getElementById("quitbtn").addEventListener("click", location.reload.bind(location));
 
+//function to clear scoreboard
+clearButton.addEventListener("click", clearScoreboard);
+function clearScoreboard(){ 
+    localStorage.clear(); 
+    record = [];
+    loadScore(); 
+}
+
 //function to load highscore
-function highScore(){ 
+function Scoreboard(){ 
     hide(scoreScreenEl);
     show(highScoreEl);
     loadScore();
@@ -112,35 +122,38 @@ function loadScore(){
     };
 };
 
+//function needs to run to check if item in [record] so it doesn't over-write localStorage
 checkScore();
-
 function checkScore(){ 
     let playerHistory = JSON.parse(localStorage.getItem("userNameAndScore"));
-    if (record){ 
+    if (playerHistory){ 
         record = playerHistory;
     };
 };
 
+//function to store score to localStorage
 function storeScore(){ 
     localStorage.setItem("userNameAndScore", JSON.stringify(record));
 };
 
+//event listener that will store initials and move to Scoreboard
 submitButton.addEventListener("click", function(event){ 
     event.preventDefault; 
     let userId = initialInput.value; 
     if (userId === ""){ //to check initial is not blank
         alert ("Your initials can't be blank!");
     };
-
+    
     let userNameAndScore = {
         userName: userId, 
         score: score
-    }
+    };
+
     record.push(userNameAndScore);
-    console.log(record)
+    console.log(record);
     initialInput.value = "";
-    storeScore()
-    highScore();
+    storeScore();
+    Scoreboard();
 });
 
 
