@@ -14,8 +14,10 @@ At the end of the quiz, you will be presented with a score with option to save. 
 If you do not wish to save your score, simply click the click button to go back to main menu. <br />
 Your score will save when you enter your initials. <br />
 Your score will be displayed on the scoreboard for you to compare to your last attemp.<br />
+You can start the quiz again by clicking on the "Main Menu". <br />
 <br />
 Have fun and enjoy! <br />
+<br />
 **please note, questionbank currently only has 5 questions but are expandable.<br />
 You may add more questions and 4 choices on to the array to populate more questions. 
 
