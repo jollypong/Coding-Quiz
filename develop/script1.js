@@ -92,13 +92,13 @@ let quizBank = [
 // function to quit Quiz?? (refresh?) or go back to startdiv? 
 document.getElementById("quitbtn").addEventListener("click", location.reload.bind(location));
 
-//function to clear scoreboard
-clearButton.addEventListener("click", clearScoreboard);
-function clearScoreboard(){ 
-    localStorage.clear(); 
-    record = [];
-    loadScore(); 
-}
+//function to clear scoreboard not working, i don't know why! 
+// clearButton.addEventListener("click", clearScoreboard);
+// function clearScoreboard(){ 
+//     localStorage.clear(); 
+//     record = [];
+//     loadScore(); 
+// }
 
 //function to load highscore
 function Scoreboard(){ 
