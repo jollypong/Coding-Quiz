@@ -14,7 +14,8 @@ At the end of the quiz, you will be presented with a score with option to save. 
 If you do not wish to save your score, simply click the click button to go back to main menu. <br />
 Your score will save when you enter your initials. <br />
 Your score will be displayed on the scoreboard for you to compare to your last attemp.<br />
-You can start the quiz again by clicking on the "Main Menu". <br />
+You can clear your saved scores by clicking the "Clear Score" button. <br />
+You can return to the start by clicking the "Main Menu" button. <br />
 <br />
 Have fun and enjoy! <br />
 <br />

@@ -97,7 +97,9 @@ clearButton.addEventListener("click", clearScoreboard);
 function clearScoreboard(){ 
     localStorage.clear(); 
     record = [];
+    alert("Scoreboard has been cleared!");
     location.reload();
+    show(scoreBoard);
 }
 
 //function to load highscore
@@ -107,7 +109,6 @@ function Scoreboard(){
     loadScore();
 }
 
-loadScore(); //has to be run due to scoreboard showing on start page. 
 // function to load score from local to html
 function loadScore(){ 
     let initialAndScore=JSON.parse(localStorage.getItem("userNameAndScore"));
@@ -141,20 +142,21 @@ function storeScore(){
 submitButton.addEventListener("click", function(event){ 
     event.preventDefault; 
     let userId = initialInput.value; 
-    if (userId === ""){ //to check initial is not blank
-        alert ("Your initials can't be blank!");
-    };
     
     let userNameAndScore = {
         userName: userId, 
         score: score
     };
 
+    if (userId === ""){ //to check initial is not blank
+        alert ("Your initials can't be blank!");
+    }else{ 
     record.push(userNameAndScore);
     console.log(record);
     initialInput.value = "";
     storeScore();
     Scoreboard();
+    }
 });
 
 
@@ -248,8 +250,8 @@ function instructions(){
 startButton.addEventListener("click", instructions);
 function instructions(){ 
     hide(startEl);
-    show(instructionsEl);
     hide(highScoreEl);
+    show(instructionsEl);
 };
 
 //hide element
