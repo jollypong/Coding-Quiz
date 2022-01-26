@@ -45,46 +45,46 @@ let quizBank = [
         ],
     answer: 3
     }, 
-    {
-    question: "What does DOM stand for?",
-    choices:[
-        "My friend Dominic",
-        "Delayed Onset Muscle-soreness",
-        "Document Object Model",
-        "Dirty Old Man"
-        ],
-    answer: 2
-    },
-    {//question3
-    question: "Which element's style am I trying to change below? imgEl[0].setAttribute('style', 'width:50%')",
-    choices:[
-        "style", 
-        "imgEl",
-        "0",
-        "First Image"
-        ],
-    answer: 3
-    },
-    {//question4 
-    question: "What is 'Element.append' used for?",
-    choices: [
-        "chooses appendix",
-        "insert set of objects after the last child of a parent",
-        "a pen",
-        "insert set of objects to the children of specified parent node"
-    ], 
-    answer: 1
-    },
-    {//question 5
-    question: "When using TimerInterval, what command will stop the timer?",
-    choices: [
-        "clearInterval()",
-        "Alt + F4",
-        "Escape",
-        "setInterval"
-    ],
-    answer: 0
-    },
+    // {
+    // question: "What does DOM stand for?",
+    // choices:[
+    //     "My friend Dominic",
+    //     "Delayed Onset Muscle-soreness",
+    //     "Document Object Model",
+    //     "Dirty Old Man"
+    //     ],
+    // answer: 2
+    // },
+    // {//question3
+    // question: "Which element's style am I trying to change below? imgEl[0].setAttribute('style', 'width:50%')",
+    // choices:[
+    //     "style", 
+    //     "imgEl",
+    //     "0",
+    //     "First Image"
+    //     ],
+    // answer: 3
+    // },
+    // {//question4 
+    // question: "What is 'Element.append' used for?",
+    // choices: [
+    //     "chooses appendix",
+    //     "insert set of objects after the last child of a parent",
+    //     "a pen",
+    //     "insert set of objects to the children of specified parent node"
+    // ], 
+    // answer: 1
+    // },
+    // {//question 5
+    // question: "When using TimerInterval, what command will stop the timer?",
+    // choices: [
+    //     "clearInterval()",
+    //     "Alt + F4",
+    //     "Escape",
+    //     "setInterval"
+    // ],
+    // answer: 0
+    // },
 ];
 
 // function to quit Quiz?? (refresh?) or go back to startdiv? 
@@ -94,57 +94,55 @@ document.getElementById("quitbtn").addEventListener("click", location.reload.bin
 function highScore(){ 
     hide(scoreScreenEl);
     show(highScoreEl);
+    loadScore();
 }
 
-//function to load score from local 
+// function to load score from local to html
 function loadScore(){ 
-    let userNameAndScore = JSON.parse(localStorage.getItem("initials-scores"))
-    console.log(userNameAndScore);
-    console.log("loadscore is working")
+    let initialAndScore=JSON.parse(localStorage.getItem("userNameAndScore"));
 
-    if (userNameAndScore !== null) {
-        
-        for (let i = 0; i < 5; i++){ 
+    console.log(initialAndScore);
+    if (initialAndScore !== null) {
+        for (let i = 0; i < initialAndScore.length; i++){ 
+            console.log(initialAndScore[i])
             let li = document.createElement("li"); 
-        li.textContent = userNameAndScore[i].userName + "-" + userNameAndScore[i].score;
-        }
-    }
-}
+        li.textContent = initialAndScore[i].userName + "-" + initialAndScore[i].score;
+        recordList.appendChild(li);
+        };
+    };
+};
 
-function checkScore(lastScore){
-    console.log(lastScore);
-    //check to see if there's any scores in localStorage
-    let highScores = JSON.parse(localStorage.getItem("initials-scores"))
-    if (!highScores){ 
-        console.log("no highscores")
-        highScores = [];
-        highScores.push(lastScore);
-        localStorage.setItem("initials-scores", JSON.stringify(highScores));
-    }
-    console.log(highScores);
-}
+checkScore();
 
-//submit button will save score and load score, bring up highscore
-submitButton.addEventListener("click", function(){ 
+function checkScore(){ 
+    let playerHistory = JSON.parse(localStorage.getItem("userNameAndScore"));
+    if (record){ 
+        record = playerHistory;
+    };
+};
+
+function storeScore(){ 
+    localStorage.setItem("userNameAndScore", JSON.stringify(record));
+};
+
+submitButton.addEventListener("click", function(event){ 
     event.preventDefault; 
-
     let userId = initialInput.value; 
     if (userId === ""){ //to check initial is not blank
         alert ("Your initials can't be blank!");
-    }
+    };
 
-    let userNameAndScore = { //create array for username and score
+    let userNameAndScore = {
         userName: userId, 
-        score: score};
-
-    initialInput.value = ""; //clear initial input
-    localStorage.setItem("userInitialsAndScore", JSON.stringify(userNameAndScore)); 
-    console.log("storescore is working");
-   
-    checkScore(userNameAndScore);
+        score: score
+    }
+    record.push(userNameAndScore);
+    console.log(record)
+    initialInput.value = "";
+    storeScore()
     highScore();
-    loadScore();
 });
+
 
 //function to display final score:
 function scoreScreen() { 
